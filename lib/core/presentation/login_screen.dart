@@ -1,4 +1,4 @@
-import 'package:firebase_riverpod/core/domain/notifier/auth_provider.dart';
+import 'package:firebase_riverpod/core/domain/notifier/auth_notifier.dart';
 import 'package:firebase_riverpod/home.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -40,10 +40,17 @@ class LoginScreen extends ConsumerWidget {
               onPressed: () async {
                 final email = emailController.text.trim();
                 final password = passwordController.text.trim();
-                final authRepo = ref.read(authProvider);
-                final userCredential =
-                    await authRepo.signInWithEmailAndPassword(email, password);
-                if (userCredential != null) {
+                final authRepo = ref.read(authNotifierProvider.notifier);
+
+                await authRepo.signIn(email: email, pass: password);
+                // ignore: use_build_context_synchronously
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const HomeScreen(),
+                  ),
+                );
+                /*if (userCredential != null) {
                   // ignore: use_build_context_synchronously
                   Navigator.push(
                     context,
@@ -53,7 +60,7 @@ class LoginScreen extends ConsumerWidget {
                   );
                 } else {
                   // Show an error message
-                }
+                }*/
               },
               child: const Text('Login'),
             ),

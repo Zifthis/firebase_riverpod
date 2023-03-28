@@ -16,6 +16,7 @@ dependencies:
   json_annotation: ^4.8.0
   firebase_auth: ^4.2.9
   flutter_riverpod: ^2.3.0
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
